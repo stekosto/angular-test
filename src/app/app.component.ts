@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-test';
+  links = [
+    {title: 'Home', path: 'home' },
+    {title: 'Contact me ', path: 'contact' },
+    {title: 'Logout', path: 'login' }
+  ];
+
+  constructor(private router: Router) {}
+  logout() {
+    this.router.navigateByUrl('/login');
+  }
 }

@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col">
+    <div class="d-flex mt-5 mb-2">
+      <button type="button" name="" id="" class="btn btn-sm btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal">Add New User</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Phone</th>
+            <!-- <th scope="col"></th> -->
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            app-user 
+            *ngFor="let user of users;" 
+            [item]="user"
+            (removeUser)="onRemoveUser($event)"
+            (editUser)="onEditUser($event)"
+            >
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-add-user></app-add-user>

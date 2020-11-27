@@ -1,0 +1,35 @@
+<!-- <div>Total items: {{ items.length }}</div> -->
+  <td *ngIf="!editingMode">{{ item.name }}</td>
+  <td *ngIf="editingMode">
+    <input 
+    type="text" 
+    [value]="item.name"
+    (input)="onNameChange(name.value)"
+    #name
+    />
+  </td>
+  <td *ngIf="!editingMode">{{ item.username }}</td>
+  <td *ngIf="editingMode">
+    <input 
+    type="text" 
+    [value]="item.username"
+    (input)="onUserNameChange(username.value)"
+    #username
+    />
+  </td>
+  <td *ngIf="!editingMode">{{ item.phone }}</td>
+  <td *ngIf="editingMode">
+    <input 
+    type="text" 
+    [value]="item.phone"
+    (input)="onPhoneChange(phone.value)"
+    #phone
+    />
+  </td>
+  <!-- <td><button type="button" class="btn  btn-sm btn-info">View</button></td> -->
+  <td>
+    <button (click)="toggleEditing()" type="button" class="btn btn-sm  btn-warning">{{ editingMode ? 'Save' : 'Edit' }}</button>
+    <button (click)="onCancelEditing($event)" [style.display]="editingMode ? 'inline-block' : 'none'" type="button" class="ml-2 btn btn-sm btn-success">Cancel</button>
+  </td>
+  <td><button (click)="onRemove()" type="button" name="" id="delete-{{ item.id }}" class="btn btn-sm  btn-danger">Delete</button></td>
+
