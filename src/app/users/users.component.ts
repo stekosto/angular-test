@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscriber } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../shared/interfaces/users.interface';
 import { UsersService } from '../shared/services/users.service';
 
@@ -10,37 +12,62 @@ import { UsersService } from '../shared/services/users.service';
 export class UsersComponent implements OnInit {
 
   users: User[];
+  viewUser: User;
+  editUser: User;
 
   constructor(private userService: UsersService) { }
 
   ngOnInit() {
-    this.users = this.userService.getUsers();
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
+  }
+
+  onViewUser(event: User) {
+    // console.log(event);
+    this.userService.getUser(event.id).subscribe((data: User) => {
+      this.viewUser = data;
+      // this.viewUser.emit(this.viewUser.id);
+    });
   }
 
   onRemoveUser(event: User) {
-    this.userService.deleteUser(event.id);
-    // this.users = this.users.filter((user: User) => {
-      //   return user.id !== event.id;
-      // });
-    console.log(event);
+    // console.log(event);
+    this.userService.deleteUser(event).subscribe(() => {
+      this.users = this.users.filter((user: User) => {
+          return user.id !== event.id;
+        });
+    });
   }
+
 
   onCreateUser(event: User) {
     this.userService.createUser(event);
     // this.users = this.users.filter((user: User) => {
       //   return user.id !== event.id;
       // });
-    console.log(event);
+    // console.log(event);
+  }
+
+  onQuickEditUser(event: User) {
+    this.userService.updateUser(event).subscribe(() => {
+      this.users = this.users.map((user: User) => {
+        if (user.id === event.id) {
+          user = Object.assign({}, user, event);
+        }
+        return user;
+      });
+    });
   }
 
   onEditUser(event: User) {
-    this.userService.editUser(event.id);
-    // this.users = this.users.map((user: User) => {
-    //   if (user.id === event.id) {
-    //     user = Object.assign({}, user, event);
-    //   }
-    // });
-    console.log(event);
+    this.userService.getUser(event.id).subscribe((data: User) => {
+      this.editUser = data;
+      // this.viewUser.emit(this.viewUser.id);
+    });
   }
-
 }

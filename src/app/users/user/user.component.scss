@@ -1,9 +1,10 @@
 td:nth-child(-n+3) {
-  width: 25%!important;
+  width: 20%!important;
+  white-space: normal;
 }
 
 td:nth-child(n+4) {
-  width: 15%!important;
+  // width: 15%!important;
   button {
     display: inline-block;
   }

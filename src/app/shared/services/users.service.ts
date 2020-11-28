@@ -1,143 +1,37 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/users.interface';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const USERS_API = 'https://jsonplaceholder.typicode.com/users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getUsers(): User[] {
-    return [
-      {
-        id: 1,
-        name: 'Leanne Graham',
-        username: 'Bret',
-        email: 'Sincere@april.biz',
-        address: {
-          street: 'Kulas Light',
-          suite: 'Apt. 556',
-          city: 'Gwenborough',
-          zipcode: '92998-3874',
-          geo: {
-            lat: -37.3159,
-            lng: 81.1496
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-        company: {
-          name: 'Romaguera-Crona',
-          catchPhrase: 'Multi-layered client-server neural-net',
-          bs: 'harness real-time e-markets'
-        }
-      },
-      {
-        id: 2,
-        name: 'Stelios Kostopoulos',
-        username: 'stekosto',
-        email: 'stekosto@gmail.com',
-        address: {
-          street: 'Kulas Light',
-          suite: 'Apt. 556',
-          city: 'Gwenborough',
-          zipcode: '92998-3874',
-          geo: {
-            lat: -37.3159,
-            lng: 81.1496
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-        company: {
-          name: 'Romaguera-Crona',
-          catchPhrase: 'Multi-layered client-server neural-net',
-          bs: 'harness real-time e-markets'
-        }
-      },
-      {
-        id: 3,
-        name: 'Stelios Kostopoulos',
-        username: 'stekosto',
-        email: 'stekosto@gmail.com',
-        address: {
-          street: 'Kulas Light',
-          suite: 'Apt. 556',
-          city: 'Gwenborough',
-          zipcode: '92998-3874',
-          geo: {
-            lat: -37.3159,
-            lng: 81.1496
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-        company: {
-          name: 'Romaguera-Crona',
-          catchPhrase: 'Multi-layered client-server neural-net',
-          bs: 'harness real-time e-markets'
-        }
-      },
-      {
-        id: 4,
-        name: 'Stelios Kostopoulos',
-        username: 'stekosto',
-        email: 'stekosto@gmail.com',
-        address: {
-          street: 'Kulas Light',
-          suite: 'Apt. 556',
-          city: 'Gwenborough',
-          zipcode: '92998-3874',
-          geo: {
-            lat: -37.3159,
-            lng: 81.1496
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-        company: {
-          name: 'Romaguera-Crona',
-          catchPhrase: 'Multi-layered client-server neural-net',
-          bs: 'harness real-time e-markets'
-        }
-      },
-      {
-        id: 5,
-        name: 'Stelios Kostopoulos',
-        username: 'stekosto',
-        email: 'stekosto@gmail.com',
-        address: {
-          street: 'Kulas Light',
-          suite: 'Apt. 556',
-          city: 'Gwenborough',
-          zipcode: '92998-3874',
-          geo: {
-            lat: -37.3159,
-            lng: 81.1496
-          }
-        },
-        phone: '1-770-736-8031 x56442',
-        website: 'hildegard.org',
-        company: {
-          name: 'Romaguera-Crona',
-          catchPhrase: 'Multi-layered client-server neural-net',
-          bs: 'harness real-time e-markets'
-        }
-      },
-    ];
+  getUsers(): Observable<User[]>{
+    return this.http.get<User[]>(USERS_API);
   }
 
-  deleteUser(userId) {
-    console.log(userId);
+  getUser(id: number): Observable<User>{
+    return this.http.get<User>(`${USERS_API}/${id}`);
+  }
+
+  deleteUser(user: User) {
+    // console.log(user);
+    return this.http.delete<User>(`${USERS_API}/${user.id}`);
   }
 
   createUser(user) {
-    console.log(user);
+    // console.log(user);
   }
 
-  editUser(userId) {
-    console.log(userId);
+  updateUser(user: User): Observable<User> {
+    // console.log(user);
+    return this.http.put<User>(`${USERS_API}/${user.id}`, user);
   }
 
 }

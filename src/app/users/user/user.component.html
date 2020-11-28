@@ -1,4 +1,3 @@
-<!-- <div>Total items: {{ items.length }}</div> -->
   <td *ngIf="!editingMode">{{ item.name }}</td>
   <td *ngIf="editingMode">
     <input 
@@ -8,7 +7,7 @@
     #name
     />
   </td>
-  <td *ngIf="!editingMode">{{ item.username }}</td>
+  <td *ngIf="!editingMode">{{ item.email }}</td>
   <td *ngIf="editingMode">
     <input 
     type="text" 
@@ -26,10 +25,11 @@
     #phone
     />
   </td>
-  <!-- <td><button type="button" class="btn  btn-sm btn-info">View</button></td> -->
-  <td>
-    <button (click)="toggleEditing()" type="button" class="btn btn-sm  btn-warning">{{ editingMode ? 'Save' : 'Edit' }}</button>
-    <button (click)="onCancelEditing($event)" [style.display]="editingMode ? 'inline-block' : 'none'" type="button" class="ml-2 btn btn-sm btn-success">Cancel</button>
+  <td><button (click)="onView()" type="button" name="" id="view-{{ item.id }}" class="btn btn-sm  btn-info">View</button></td>
+  <td><button (click)="onEdit()" type="button" name="" id="edit-{{ item.id }}" class="btn btn-sm  btn-success">Edit</button></td>
+  <td class="text-center">
+    <button (click)="toggleEditing()" type="button" class="btn btn-sm btn-warning">{{ editingMode ? 'Save' : 'Quick Edit' }}</button>
+    <button (click)="onCancelEditing($event)" [style.display]="editingMode ? 'inline-block' : 'none'" type="button" class="ml-2 btn btn-sm btn-secondary">Cancel</button>
   </td>
   <td><button (click)="onRemove()" type="button" name="" id="delete-{{ item.id }}" class="btn btn-sm  btn-danger">Delete</button></td>
 

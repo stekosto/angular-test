@@ -10,7 +10,8 @@
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Phone</th>
-            <!-- <th scope="col"></th> -->
+            <th scope="col"></th>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -21,7 +22,9 @@
             *ngFor="let user of users;" 
             [item]="user"
             (removeUser)="onRemoveUser($event)"
+            (quickEditUser)="onQuickEditUser($event)"
             (editUser)="onEditUser($event)"
+            (viewUser)="onViewUser($event)"
             >
           </tr>
         </tbody>
@@ -30,4 +33,5 @@
   </div>
 </div>
 
-<app-add-user></app-add-user>
+<app-view-user [viewUser]="viewUser" ></app-view-user>
+<app-add-user [editUser]="editUser" ></app-add-user>

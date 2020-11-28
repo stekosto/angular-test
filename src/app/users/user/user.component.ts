@@ -15,6 +15,12 @@ export class UserComponent implements OnInit {
   removeUser: EventEmitter<any> = new EventEmitter();
 
   @Output()
+  viewUser: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  quickEditUser: EventEmitter<any> = new EventEmitter();
+
+  @Output()
   editUser: EventEmitter<any> = new EventEmitter();
 
   editingMode = false;
@@ -38,14 +44,22 @@ export class UserComponent implements OnInit {
   }
 
   toggleEditing() {
-    if (this.editUser) {
-      this.editUser.emit(this.item)
+    if (this.editingMode) {
+      this.quickEditUser.emit(this.item);
     }
     this.editingMode = !this.editingMode;
   }
 
   onRemove() {
     this.removeUser.emit(this.item);
+  }
+
+  onView() {
+    this.viewUser.emit(this.item);
+  }
+
+  onEdit() {
+    this.editUser.emit(this.item);
   }
 
   onCancelEditing(event) {
